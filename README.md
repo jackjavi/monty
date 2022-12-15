@@ -1,189 +1,107 @@
-# 0x18. C - Stacks, Queues - LIFO, FIFO
+# Monty
 
+`Monty 0.98` is a scripting language that is first compiled into monty byte codes (Just like python). It relies on a unique stack, with specific instructions to manipulate it. **`monty`** is an interpreter built specially for the said Monty Bytecodes files.
 
+## More About the Monty language
+This is a language that contains specific instructions to manipulate data information (stacks or queues), where each instruction (*called opcode*) is sended per line. Files which contains Monty byte codes usually have the `.m` extension.
 
-## Description
-
-In this project we are tasked to create an interpreter for Monty ByteCode files. These files will have commands per line to manipulate the data structure given.
-
-
-
-What you should learn from this project:
-
-
-
-* What do LIFO and FIFO mean
-
-* What is a stack, and when to use it
-
-* What is a queue, and when to use it
-
-* What are the common implementations of stacks and queues
-
-* What are the most common use cases of stacks and queues
-
-* What is the proper way to use global variables
-
-* How to work with git submodules
-
-
-
----
-
-
-
-## Instructions
-
-
-
-Compile with:
-
+Example (`file.m`):
+```bash
+$ cat file.m
+# Pushing element to the stack
+push 0
+push 1
+push 2
+# Printing all elements
+pall
+push 3
+push 4
+pop
+# Rotating the stack to the bottom
+rotr
+pall
+rotl
+# Setting FIFO
+queue
+push 5
+# Setting LIFO
+stack
+push 5
+$
 ```
 
-gcc -Wall -Werror -Wextra -pedantic *.c -o monty
+## Technologies
+* Interpreter was written with C language
+* C files are compiled using `gcc 4.8.4`
+* C files are written according to the C90 standard
+* Tested on Ubuntu 20.04 LTS
 
+## Usage
+To compile all files:
+
+```bash
+$ gcc -Wall -Werror -Wextra -pedantic *.c -o monty
+$
 ```
 
-
-## Files
-
-
-
-### [monty.c](./monty.c)
-
-* Contains the main function that takes in the file and runs the parser.
-
-
-
-### [monty.h](./monty.h)
-
-* Header file.
-
-
-
-### [parse.c](./parse.c)
-
-* Functions that parses the file from main, then parses the lines. While parsing, data is stored into structs to be passed onto other functions.
-
-
-
-### [verify.c](./verify.c)
-
-* Contains functions that checks arguments from lines of the file. Checks for if push function is in the file line.
-
-
-
-### [match.c](./match.c)
-
-* Our get operations function that matches the aruguments with what opcode function we need to run.
-
-
-
-### [opcodes_1.c](./opcodes_1.c)
-
-* Contains push, pall, free_stack, and nop.
-
-
-
-### [opcodes_2.c](./opcodes_2.c)
-
-* Contains pint, pop, swap, pchar, and pstr.
-
-
-
-### [opcodes_3.c](./opcodes_3.c)
-
-* Contains rotl, rotr, qpush.
-
-
-
-### [opcodes_math.c](./opcodes_math.c)
-
-* Contains add, sub, div, mul, mod.
-
-
-
-### [opcodes_mode.c](./opcodes_mode.c)
-
-* Contains stack and queue.
-
-
-
----
-
-
-
-## Requirements
-
-- All your files will be compiled on Ubuntu 20.04 LTS
-
-- Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl
-
-- You allowed to use a maximum of one global variable
-
-- No more than 5 functions per file
-
-- You are allowed to use the C standard library
-
-
----
-
-
-
-## Tasks
-
-
-
-### 0. push, pall
-
-* Implement the push and pall opcodes.
-
-* The opcode push pushes an element to the stack.
-
-* The opcode pall prints all the values on the stack, starting from the top of the stack.
-
-
-
-### 1. pint
-
-* Implement the pint opcode.
-
-* The opcode pint prints the value at the top of the stack, followed by a new line.
-
-
-
-### 2. pop
-
-* Implement the pop opcode.
-
-* The opcode pop removes the top element of the stack.
-
-
-
-### 3. swap
-
-* Implement the swap opcode
-
-* The opcode swap swaps the top two elements of the stack.
-
-
-
-### 4. add
-
-* Implement the add opcode.
-
-* The opcode add adds the top two elements of the stack.
-
-
-
-### 5. nop
-
-* Implement the nop opcode.
-
-* The opcode nop doesn’t do anything.
-
-
-
-### Advanced Tasks
-
-* opcodes: sub, div, mul, mod, comments, pchar, pstr, rotl, rotr, stack, queue, Holberton, Add two digits, Multiplication, Multiplication level up
+The **synopsis** of the interpreter is the following:
+
+```bash
+$ ./monty [filename]
+$
+```
+
+To run the interpreter:
+
+```bash
+$ ./monty file.m
+2
+1
+0
+0
+3
+2
+1
+$
+```
+
+## Features
+### Opcodes
+`monty` executes the following opcodes:
+
+| Opcode | Description |
+| -------- | ----------- |
+| `push` | Pushes an element to the stack |
+| `pall` | Prints all the values on the stack |
+| `pint` | Prints the value at the top of the stack |
+| `pop` | Removes the top element of the stack |
+| `swap` | Swaps the top two elements of the stack |
+| `queue` | Sets the format of the data to a queue (FIFO) |
+| `stack` | Sets the format of the data to a stack (LIFO) |
+| `nop` | Doesn't do anything |
+| `add` | Adds the top two elements of the stack |
+| `sub` | Subtracts the top element of the stack from the second top element of the stack |
+| `mul` | Multiplies the second top element of the stack with the top element of the stack |
+| `div` | Divides the second top element of the stack by the top element of the stack |
+| `mod` | Computes the rest of the division of the second top element of the stack by the top element of the stack |
+| `pchar` | Prints the char at the top of the stack |
+| `pstr` | Prints the string starting at the top of the stack |
+| `rotl` | Rotates the stack to the top |
+| `rotr` | Rotates the stack to the bottom |
+
+Comments, indicated with `#`, are not executed by the interpreter.
+
+When a **nonextistent opcode** is passed, the interpreter prints an error message and stops:
+
+```bash
+$ cat errorfile.m
+push 1
+pint
+pcx
+$ ./monty errorfile.m
+1
+L3: unknown instruction pcx
+```
+
+### Return value
+When there is no errors, `monty` returns `0`. Otherwise, returns `1`
